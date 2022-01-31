@@ -1,5 +1,5 @@
 #include "Stack.hpp"
-#include "Vector.hpp"
+#include "Map.hpp"
 #include <algorithm>
 #include <vector>
 #include <list>
@@ -108,9 +108,9 @@ int main( void )
         //std::cout << "*************" << std::endl;
         std::cout << vectorCopy.at(5) << std::endl;
         std::cout << "*************" << std::endl;
-        std::for_each(vectorAssign.rend(), vectorAssign.rbegin(), printVector);
+        //std::for_each(vectorAssign.rend(), vectorAssign.rbegin(), printVector);
         std::cout << "*************" << std::endl;
-        std::for_each(vectorCopy.rend(), vectorCopy.rbegin(), printVector);
+        //std::for_each(vectorCopy.rend(), vectorCopy.rbegin(), printVector);
         std::cout << "*************" << std::endl;
         std::cout << vectorAssign.back() << std::endl;
         std::cout << "*************" << std::endl;
@@ -118,9 +118,9 @@ int main( void )
         vectorAssign.pop_back();
         vectorCopy.pop_back();
         std::cout << "*************" << std::endl;
-        std::for_each(vectorAssign.rend(), vectorAssign.rbegin(), printVector);
+        //std::for_each(vectorAssign.rend(), vectorAssign.rbegin(), printVector);
         std::cout << "*************" << std::endl;
-        std::for_each(vectorCopy.rend(), vectorCopy.rbegin(), printVector);
+        //std::for_each(vectorCopy.rend(), vectorCopy.rbegin(), printVector);
         std::cout << "*************" << std::endl;
         std::cout << vectorAssign.front() << std::endl;
         std::cout << "*************" << std::endl;
@@ -148,7 +148,7 @@ int main( void )
         vectorCopy.resize(15, '*');
         std::for_each(vectorCopy.begin(), vectorCopy.end(), printVector);
         std::cout << "*************" << std::endl;
-        vectorAssign.assign(vectorCopy.rend(), vectorCopy.rbegin());
+        //vectorAssign.assign(vectorCopy.rend(), vectorCopy.rbegin());
         std::for_each(vectorAssign.begin(), vectorAssign.end(), printVector);
         std::cout << "*************" << std::endl;
         vectorCopy.assign(7, '$');
@@ -166,10 +166,10 @@ int main( void )
         std::cout << *vectorCopy.erase(vectorCopy.begin()) << std::endl;
         std::cout << "*************" << std::endl;
         std::for_each(vectorCopy.begin(), vectorCopy.end(), printVector);
-        ft::vector< float > swapf;
-        ft::vector< float > swapc;
-        swapf.assign(5, 0.02f);
-        swapc.assign(6, 0.15f);
+        ft::vector< int > swapf;
+        ft::vector< int > swapc;
+        swapf.assign(5, 2);
+        swapc.assign(6, 5);
         swapf.swap(swapc);
         std::cout << "*************" << std::endl;
         std::for_each(swapf.begin(), swapf.end(), printFloat);
@@ -184,6 +184,13 @@ int main( void )
         ft::vector< int > listV(list.begin(), list.end());
         std::cout << "*************" << std::endl;
         std::for_each(listV.begin(), listV.end(), printInt);
+        ft::map< int, int> maps;
+        ft::RBTree<ft::map<int, int>::iterator, bool>	b_pair;
+	    ft::map<int, int>::iterator					it = maps.begin();
+        maps.insert(swapf.begin(), swapf.end());
+        maps.insert(5);
+        maps.insert(maps.begin(), 3);
+        maps.print();
     }
     catch(const std::exception& e)
     {

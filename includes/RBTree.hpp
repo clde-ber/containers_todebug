@@ -8,16 +8,21 @@ static int end = 0;
 namespace ft
 {
     template< class Key >
-    struct Node
+    class Node
     {
-        Key data; // holds the key
-        Node *parent; // pointer to the parent
-        Node *left; // pointer to left child
-        Node *right; // pointer to right child
-        int color; // 1 -> Red, 0 -> Black
+        public:
+            Key data; // holds the key
+            Node *parent; // pointer to the parent
+            Node *left; // pointer to left child
+            Node *right; // pointer to right child
+            int color; // 1 -> Red, 0 -> Black
+            Node() : data(0), parent(NULL), left(NULL), right(NULL), color(0) {}
+            Node(Key datakey) : data(datakey), parent(NULL), left(NULL), right(NULL), color(0) {}
+            Node(Node const &rhs) : data(rhs.data), parent(rhs.parent), left(rhs.left), right(rhs.right), color(rhs.color) {}
+            Node operator=(Node const &rhs) { data = rhs.data; parent = rhs.parent; left = rhs.left; right = rhs.right; color = rhs.color;}
+            virtual ~Node() {}
     };
-
-    template< class Key, class T >
+    template < class Key, class T >
     class RBTree
     {
         private:
@@ -42,6 +47,10 @@ namespace ft
         public:
             typedef Node< Key >* NodePtr;
 
+            RBTree() : root(NULL) {}
+            RBTree(RBTree const & rhs) :root(rhs.root) {}
+            RBTree operator=(RBTree const & rhs) { root = rhs.root;}
+            virtual ~RBTree() {}
             void leftRotate(NodePtr x)
             {
                 NodePtr y = x->right;
@@ -87,11 +96,23 @@ namespace ft
                     root = y;
                 root->color = 0;
             }
-            void insert(int key)
+            NodePtr find(Key key)
             {
-                NodePtr node = new Node< Key >;
-                initializeNode(node);
-                node->data = key;
+                NodePtr fromRoot = root;
+                while (fromRoot)
+                {
+                    if (key < fromRoot->data)
+                        fromRoot = fromRoot->left;
+                    else if (key > fromRoot->data)
+                        fromRoot = fromRoot->right;
+                    else
+                        break ;
+                }
+                return fromRoot;
+            }
+            void insertion(Key key)
+            {
+                NodePtr node = new Node< Key >(key);
                 node->color = 1; // new node must be red
                 
                 NodePtr fromRoot = root;
@@ -251,7 +272,7 @@ namespace ft
                     }
                     return 0;
             }
-            void deleteNode(int key)
+            void deleteNode(Key key)
             {
                 NodePtr found = NULL;
                 NodePtr node = getRoot();
